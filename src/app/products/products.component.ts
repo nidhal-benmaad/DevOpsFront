@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // get all products
     this.getAllProducts();
 
     this.product = {
@@ -28,7 +29,6 @@ export class ProductsComponent implements OnInit {
       prix: null,
       dateCreation: null,
       dateDerniereModification: null
-
     }
   }
 
@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct(p: any) {
+    // call addProduct service
     this.productService.addProduct(p).subscribe(() => {
       this.getAllProducts();
       this.form = false;
