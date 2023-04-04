@@ -18,8 +18,7 @@ pipeline {
             steps {
                 sh 'npm --version'
                 sh 'npm install'
-                sh 'npm install sonar-scanner'
-                // sh 'npm run build --prod'
+                sh 'npm run build --prod'
             }
         }
 
