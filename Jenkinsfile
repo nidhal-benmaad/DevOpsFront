@@ -13,12 +13,9 @@ pipeline {
     // }
   tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
-        java 'JAVA_HOME'
+        node 'nodeJS16.13'
     }
-environment {
-    JAVA_HOME = tool 'java'
-    PATH = "$JAVA_HOME/bin:$PATH"
-}
+
     stages {
         stage('Build') {
             steps {
