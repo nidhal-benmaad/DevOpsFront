@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo apt-get install -y nodejs npm'
+                sh 'apt-get install nodejs'
                 sh 'npm --version'
                 sh 'npm install'
                 // sh 'npm run build --prod'
