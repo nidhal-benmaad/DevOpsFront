@@ -10,11 +10,11 @@ pipeline {
     //     NEXUS_URL = 'https://my-nexus-repo.com'
     //     NEXUS_USERNAME = credentials('my-nexus-creds').username
     //     NEXUS_PASSWORD = credentials('my-nexus-creds').password
-       PATH = "/usr/local/bin/node:${env.PATH}"
+       //PATH = "/usr/local/bin/node:${env.PATH}"
     }
   tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
-        nodejs 'nodeJS16.13'
+        nodejs 'nodeJS Home'
     }
 
     stages {
