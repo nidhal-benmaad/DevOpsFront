@@ -13,7 +13,7 @@ pipeline {
     // }
   tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
-        nodeJS 'nodeJS16.13'
+        nodejs 'nodeJS16.13'
     }
 
     stages {
