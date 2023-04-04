@@ -10,7 +10,7 @@ pipeline {
     //     SONAR_LOGIN = credentials("sonarqube-credentials")
     // }
     tools {
-        nodejs 'NodeJS 19.8.1'
+        nodejs 'NodeJS 18.5.0'
     }
 
     stages {
