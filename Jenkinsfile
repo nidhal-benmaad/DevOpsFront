@@ -23,13 +23,13 @@ pipeline {
             }
         }
 
-    stage('SonarQube analysis') {
-        steps {
-            withSonarQubeEnv('SonarQube') {
-                sh 'sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_URL}'
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_URL}'
+                }
             }
         }
-    }
 
 
         // stage('Publish to Nexus') {
@@ -38,4 +38,5 @@ pipeline {
         //     }
         // }
     
+    }
 }
