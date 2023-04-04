@@ -11,6 +11,10 @@ pipeline {
     //     NEXUS_USERNAME = credentials('my-nexus-creds').username
     //     NEXUS_PASSWORD = credentials('my-nexus-creds').password
     // }
+  tools {
+        // specify the name of the Java installation defined in "Global Tool Configuration"
+        java 'JAVA_HOME'
+    }
 
     stages {
         stage('Build') {
