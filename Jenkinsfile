@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh 'npm --version'
                 sh 'npm install'
-                sh 'npm run build --prod'
+                // sh 'npm run build --prod'
             }
         }
 
