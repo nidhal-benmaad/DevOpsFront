@@ -14,7 +14,7 @@ pipeline {
    // }
   tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
-        nodejs 'Node_Home'
+        nodejs 'NodeJS 19.8.1'
     }
 
     stages {
