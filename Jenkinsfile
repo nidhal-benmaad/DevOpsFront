@@ -11,10 +11,10 @@ pipeline {
     //     NEXUS_USERNAME = credentials('my-nexus-creds').username
     //     NEXUS_PASSWORD = credentials('my-nexus-creds').password
     // }
-  tools {
+  /*tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
         node 'nodeJS16.13'
-    }
+    }*/
 
     stages {
         stage('Build') {
