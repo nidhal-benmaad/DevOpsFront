@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'apt-get install nodejs'
+                sh 'brew install nodejs'
                 sh 'npm --version'
                 sh 'npm install'
                 // sh 'npm run build --prod'
