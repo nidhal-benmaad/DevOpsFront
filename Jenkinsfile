@@ -5,12 +5,13 @@ pipeline {
         string(name: 'SONAR_LOGIN', defaultValue: '', description: 'SonarQube user login')
         string(name: 'SONAR_PASSWORD', defaultValue: '', description: 'SonarQube user password')
     }*/
-    // environment {
+     environment {
     //     // Configure the Nexus repository URL and credentials
     //     NEXUS_URL = 'https://my-nexus-repo.com'
     //     NEXUS_USERNAME = credentials('my-nexus-creds').username
     //     NEXUS_PASSWORD = credentials('my-nexus-creds').password
-    // }
+       PATH = "/usr/local/bin/node:${env.PATH}"
+    }
   tools {
         // specify the name of the Java installation defined in "Global Tool Configuration"
         nodejs 'nodeJS16.13'
