@@ -5,9 +5,11 @@ pipeline {
          stage ('GIT') {
             steps {
                echo "Getting Project from Git";
-                git branch: "main",
-                    url: "https://github.com/nidhal-benmaad/DevOpsFront.git",
-                    credentialsId:"front";
+                    git branch: "main",
+                  url: "https://github.com/nidhal-benmaad/DevOpsFront.git",
+                     credentialsId:"gitHub";
+                     echo "Getting Project from Git";
+
                    }
         }
 
