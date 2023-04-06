@@ -4,7 +4,7 @@ pipeline {
          stage ('GIT') {
             steps {
                echo "Getting Project from Git";
-                    git branch: "main",
+                    git branch: "ghadaBranch",
                         url: "https://github.com/nidhal-benmaad/DevOpsFront.git",
                         credentialsId:"gitHub";
 
