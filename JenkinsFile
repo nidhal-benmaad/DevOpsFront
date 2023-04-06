@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+          nodejs 'NodeJS 18.5.0'
+        }
     stages {
          stage ('GIT') {
             steps {
@@ -10,19 +13,14 @@ pipeline {
 
 
                    }
-           tools {
-                 nodejs 'NodeJS 18.5.0'
-             }
-
-             stages {
-                 stage('Build') {
-                     steps {
-                         sh 'npm --version'
-                         sh 'npm install'
-                         // sh 'npm run build --prod'
-                     }
-                 }
                          }
+          stage('Build') {
+                      steps {
+                          sh 'npm --version'
+                          sh 'npm install'
+                          // sh 'npm run build --prod'
+                      }
+                  }
 
     }
 }
