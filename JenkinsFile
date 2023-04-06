@@ -1,0 +1,15 @@
+
+pipeline {
+    agent any
+    stages {
+         stage ('GIT') {
+            steps {
+               echo "Getting Project from Git";
+                git branch: "main",
+                    url: "https://github.com/nidhal-benmaad/DevOpsFront.git",
+                    credentialsId:"front";
+                   }
+        }
+
+    }
+}
