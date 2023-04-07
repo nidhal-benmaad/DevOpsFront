@@ -5,40 +5,52 @@ pipeline {
         string(name: 'SONAR_USERNAME', defaultValue: '', description: 'SonarQube user login')
         string(name: 'SONAR_PASSWORD', defaultValue: '', description: 'SonarQube user password')
     }
-    // environment {
-    //     SONAR_URL = "http://localhost:9000"
-    //     SONAR_LOGIN = credentials("sonarqube-credentials")
-    // }
-    // tools {
-    //     nodejs 'NodeJS 18.5.0'
-    // }
 
     stages {
         stage('Install') {
-        steps { sh 'npm install' }
+            steps { 
+                sh 'npm install' 
+            }
         }
 
         stage('Test') {
             parallel {
                 stage('Static code analysis') {
-                    steps { sh 'npm run-script lint' }
+                    steps { 
+                        sh 'npm run lint' 
+                    }
                 }
                 stage('Unit tests') {
-                    steps { sh 'npm run-script test' }
+                    steps { 
+                        sh 'npm run test' 
+                    }
                 }
             }
         }
 
         stage('Build') {
-        steps { sh 'npm run-script build' }
+            steps { 
+                sh 'npm run build' 
+            }
         }
 
-
+        // Uncomment this stage and modify as needed for your Nexus configuration
         // stage('Publish to Nexus') {
         //     steps {
         //         nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'npm-repo', packages: [[$class: 'NpmPackage', packageJson: 'package.json', path: 'dist/my-app']], protocol: 'https', repositoryName: 'my-npm-repo', serverDetails: [credentialsId: 'my-nexus-creds', nexusUrl: NEXUS_URL]
         //     }
         // }
-    
+
+        // stage('SonarQube analysis') {
+        //     environment {
+        //         // Use the SONAR_LOGIN environment variable for authentication
+        //         SONAR_LOGIN = credentials('sonarqube-credentials')
+        //     }
+        //     steps {
+        //         withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: params.SONAR_HOST_URL) {
+        //             sh 'npm run sonar-scanner'
+        //         }
+        //     }
+        // }
     }
 }
