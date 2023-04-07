@@ -14,20 +14,23 @@ pipeline {
     // }
 
     stages {
-        stage('Build') {
-            steps {
-                sh 'npm --version'
-                sh 'npm install'
-                // sh 'npm run build --prod'
+        stage('Install') {
+        steps { sh 'npm install' }
+        }
+
+        stage('Test') {
+            parallel {
+                stage('Static code analysis') {
+                    steps { sh 'npm run-script lint' }
+                }
+                stage('Unit tests') {
+                    steps { sh 'npm run-script test' }
+                }
             }
         }
 
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_HOST_URL}'
-                }
-            }
+        stage('Build') {
+        steps { sh 'npm run-script build' }
         }
 
 
