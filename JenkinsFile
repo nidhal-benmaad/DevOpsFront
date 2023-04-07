@@ -28,7 +28,7 @@ pipeline {
 
      stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarFront') {
+                withSonarQubeEnv('SonarServer') {
                     sh 'sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_HOST_URL}'
                 }
             }
