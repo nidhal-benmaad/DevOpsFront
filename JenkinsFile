@@ -5,6 +5,15 @@ pipeline {
             string(name: 'SONAR_USERNAME', defaultValue: 'admin', description: 'SonarQube user login')
             string(name: 'SONAR_PASSWORD', defaultValue: 'Esprit', description: 'SonarQube user password')
         }*/
+
+        credentials {
+          usernamePassword(
+            credentialsId: 'sonarqube-token',
+            usernameVariable: 'admin',
+            passwordVariable: 'Esprit',
+            description: 'SonarQube access token'
+          )
+        }
     tools {
           nodejs 'nodeJs 19.8.1'
         }
@@ -27,14 +36,15 @@ pipeline {
                       }
                   }
 
-          stage('SonarQube analysis') {
-            steps {
-              withSonarQubeEnv('SonarFront') {
-                sh 'npm install sonarqube-scanner'
-                sh 'sonar-scanner'
-              }
-            }
-          }
-
+       stage('SonarQube analysis') {
+         steps {
+           withCredentials([usernamePassword(credentialsId: 'sonarqube-token', usernameVariable: 'SONARQUBE_TOKEN', passwordVariable: 'SONARQUBE_PASSWORD')]) {
+             withSonarQubeEnv('SonarFront') {
+               sh 'npm install sonarqube-scanner'
+               sh 'sonar-scanner'
+             }
+           }
+         }
+       }
     }
 }
