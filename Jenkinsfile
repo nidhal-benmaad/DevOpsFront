@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    parameters {
-        string(name: 'SONAR_HOST_URL', defaultValue: 'http://localhost:9000', description: 'SonarQube server URL')
-        string(name: 'SONAR_USERNAME', defaultValue: '', description: 'SonarQube user login')
-        string(name: 'SONAR_PASSWORD', defaultValue: '', description: 'SonarQube user password')
-    }
+    // parameters {
+    //     string(name: 'SONAR_HOST_URL', defaultValue: 'http://localhost:9000', description: 'SonarQube server URL')
+    //     string(name: 'SONAR_USERNAME', defaultValue: '', description: 'SonarQube user login')
+    //     string(name: 'SONAR_PASSWORD', defaultValue: '', description: 'SonarQube user password')
+    // }
 
     stages {
         stage('Install') {
