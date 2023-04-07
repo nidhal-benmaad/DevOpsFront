@@ -1,5 +1,10 @@
 pipeline {
     agent any
+        parameters {
+            string(name: 'SONAR_HOST_URL', defaultValue: 'http://localhost:9000', description: 'SonarQube server URL')
+            string(name: 'SONAR_USERNAME', defaultValue: 'admin', description: 'SonarQube user login')
+            string(name: 'SONAR_PASSWORD', defaultValue: 'Esprit', description: 'SonarQube user password')
+        }
     tools {
           nodejs 'nodeJs 19.8.1'
         }
@@ -22,14 +27,13 @@ pipeline {
                       }
                   }
 
-          stage('SonarQube analysis') {
-              steps {
-                  withSonarQubeEnv('SonarFront') {
-                       //sh 'npm install sonarqube-scanner'
-                       sh 'sonar-scanner'
-                  }
-              }
-          }
+    stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_HOST_URL}'
+                }
+            }
+        }
 
     }
 }
