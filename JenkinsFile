@@ -21,13 +21,14 @@ pipeline {
                           // sh 'npm run build --prod'
                       }
                   }
-           stage('SonarQube analysis') {
-                     steps {
-                         withSonarQubeEnv('SonarQube') {
-                             sh 'sonar-scanner -Dsonar.login=${admin} -Dsonar.password=${Esprit} -Dsonar.host.url=${http://10.2.12.120:9000/}'
-                         }
-                     }
-                 }
+
+          stage('SonarQube analysis') {
+              steps {
+                  withSonarQubeEnv('SonarFront') {
+                      sh './sonar-scanner'
+                  }
+              }
+          }
 
     }
 }
