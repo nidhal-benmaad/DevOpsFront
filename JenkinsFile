@@ -19,6 +19,13 @@ pipeline {
 
                    }
                          }
+         stage('Install Dependencies') {
+           steps {
+             withNodeJS(nodeJSInstallationName) {
+               sh 'npm install --legacy-lockfile'
+             }
+           }
+         }
           stage('Build') {
                       steps {
                           sh 'npm -version'
