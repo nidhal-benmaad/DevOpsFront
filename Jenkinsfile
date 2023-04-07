@@ -7,20 +7,20 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            parallel {
-                // stage('Static code analysis') {
-                //     steps { 
-                //         sh 'npm run lint' 
-                //     }
-                // }
+        // stage('Test') {
+        //     parallel {
+        //         stage('Static code analysis') {
+        //             steps { 
+        //                 sh 'npm run lint' 
+        //             }
+        //         }
+        //     }
+        // }
                 stage('Unit tests') {
                     steps { 
                         sh 'npm run test' 
                     }
                 }
-            }
-        }
 
         // stage('Build') {
         //     steps { 
