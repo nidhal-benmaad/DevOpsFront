@@ -28,7 +28,7 @@ pipeline {
 
      stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarServer') {
+                withSonarQubeEnv('SonarFront') {
                     sh 'npm install sonarqube-scanner'
                     sh 'sonar-scanner -Dsonar.login=${admin} -Dsonar.password=${Esprit} -Dsonar.host.url=${http://localhost:9000}'
                 }
