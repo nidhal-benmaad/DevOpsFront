@@ -7,20 +7,20 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     parallel {
-        //         stage('Static code analysis') {
-        //             steps { 
-        //                 sh 'npm run lint' 
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            parallel {
+                stage('Static code analysis') {
+                    steps { 
+                        sh 'npm run lint' 
+                    }
+                }
                 stage('Unit tests') {
                     steps { 
                         sh 'npm run test' 
                     }
                 }
+            }
+        }
 
         // stage('Build') {
         //     steps { 
@@ -35,17 +35,17 @@ pipeline {
         //     }
         // }
 
-        stage('SonarQube analysis') {
-            environment {
-                // Use the SONAR_LOGIN environment variable for authentication
-                SONAR_LOGIN = credentials('sonarqube-credentials')
-                SONAR_HOST_URL = "http://localhost:9000"
-            }
-            steps {
-                withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: SONAR_HOST_URL) {
-                    sh 'npm run sonar-scanner'
-                }
-            }
-        }
+        // stage('SonarQube analysis') {
+        //     environment {
+        //         // Use the SONAR_LOGIN environment variable for authentication
+        //         SONAR_LOGIN = credentials('sonarqube-credentials')
+        //         SONAR_HOST_URL = "http://localhost:9000"
+        //     }
+        //     steps {
+        //         withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: SONAR_HOST_URL) {
+        //             sh 'npm run sonar-scanner'
+        //         }
+        //     }
+        // }
     }
 }
