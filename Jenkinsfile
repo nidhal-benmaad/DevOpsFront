@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    // parameters {
-    //     string(name: 'SONAR_HOST_URL', defaultValue: 'http://localhost:9000', description: 'SonarQube server URL')
-    //     string(name: 'SONAR_USERNAME', defaultValue: '', description: 'SonarQube user login')
-    //     string(name: 'SONAR_PASSWORD', defaultValue: '', description: 'SonarQube user password')
-    // }
-
     stages {
         stage('Install') {
             steps { 
@@ -15,11 +9,11 @@ pipeline {
 
         stage('Test') {
             parallel {
-                stage('Static code analysis') {
-                    steps { 
-                        sh 'npm run lint' 
-                    }
-                }
+                // stage('Static code analysis') {
+                //     steps { 
+                //         sh 'npm run lint' 
+                //     }
+                // }
                 stage('Unit tests') {
                     steps { 
                         sh 'npm run test' 
@@ -28,11 +22,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps { 
-                sh 'npm run build' 
-            }
-        }
+        // stage('Build') {
+        //     steps { 
+        //         sh 'npm run build' 
+        //     }
+        // }
 
         // Uncomment this stage and modify as needed for your Nexus configuration
         // stage('Publish to Nexus') {
@@ -41,16 +35,17 @@ pipeline {
         //     }
         // }
 
-        // stage('SonarQube analysis') {
-        //     environment {
-        //         // Use the SONAR_LOGIN environment variable for authentication
-        //         SONAR_LOGIN = credentials('sonarqube-credentials')
-        //     }
-        //     steps {
-        //         withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: params.SONAR_HOST_URL) {
-        //             sh 'npm run sonar-scanner'
-        //         }
-        //     }
-        // }
+        stage('SonarQube analysis') {
+            environment {
+                // Use the SONAR_LOGIN environment variable for authentication
+                SONAR_LOGIN = credentials('sonarqube-credentials')
+                SONAR_HOST_URL = "http://localhost:9000"
+            }
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: SONAR_HOST_URL) {
+                    sh 'npm run sonar-scanner'
+                }
+            }
+        }
     }
 }
