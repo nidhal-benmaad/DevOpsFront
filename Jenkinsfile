@@ -9,9 +9,9 @@ pipeline {
     //     SONAR_URL = "http://localhost:9000"
     //     SONAR_LOGIN = credentials("sonarqube-credentials")
     // }
-    tools {
-        nodejs 'NodeJS 18.5.0'
-    }
+    // tools {
+    //     nodejs 'NodeJS 18.5.0'
+    // }
 
     stages {
         stage('Build') {
