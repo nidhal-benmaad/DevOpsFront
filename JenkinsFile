@@ -25,7 +25,7 @@ pipeline {
           stage('SonarQube analysis') {
               steps {
                   withSonarQubeEnv('SonarFront') {
-                       sh 'npm install sonarqube-scanner'
+                       //sh 'npm install sonarqube-scanner'
                        sh 'sonar-scanner'
                   }
               }
