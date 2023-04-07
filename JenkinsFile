@@ -15,7 +15,7 @@ pipeline {
                     git branch: "ghadaBranch",
                         url: "https://github.com/nidhal-benmaad/DevOpsFront.git",
                         credentialsId:"gitHub";
-
+}
 
                    }
           stage('Build') {
@@ -33,6 +33,8 @@ pipeline {
                 }
             }
         }
+
     }
+
 }
-}
+
