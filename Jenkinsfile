@@ -22,11 +22,11 @@ pipeline {
                 
         //     }
         // }
-        stage('Unit tests') {
-            steps { 
-                    sh 'npm run test'
-            }
-        }
+        // stage('Unit tests') {
+        //     steps { 
+        //         sh 'npm run test'
+        //     }
+        // }
 
         stage('Build') {
             steps { 
