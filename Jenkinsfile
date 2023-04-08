@@ -1,5 +1,14 @@
 pipeline {
     agent any
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "localhost:8081"
+        NEXUS_REPOSITORY = "AngularAppRepo"
+        NEXUS_CREDENTIAL_ID = "nexus-credentials"
+
+        DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
+    }
     stages {
         stage('Install') {
             steps { 
@@ -7,45 +16,48 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            parallel {
-                stage('Static code analysis') {
-                    steps { 
-                        sh 'npm run lint' 
-                    }
-                }
-                stage('Unit tests') {
-                    steps { 
-                        sh 'npm run test' 
-                    }
-                }
-            }
-        }
-
-        // stage('Build') {
-        //     steps { 
-        //         sh 'npm run build' 
-        //     }
-        // }
-
-        // Uncomment this stage and modify as needed for your Nexus configuration
-        // stage('Publish to Nexus') {
-        //     steps {
-        //         nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'npm-repo', packages: [[$class: 'NpmPackage', packageJson: 'package.json', path: 'dist/my-app']], protocol: 'https', repositoryName: 'my-npm-repo', serverDetails: [credentialsId: 'my-nexus-creds', nexusUrl: NEXUS_URL]
-        //     }
-        // }
-
-        // stage('SonarQube analysis') {
-        //     environment {
-        //         // Use the SONAR_LOGIN environment variable for authentication
-        //         SONAR_LOGIN = credentials('sonarqube-credentials')
-        //         SONAR_HOST_URL = "http://localhost:9000"
-        //     }
-        //     steps {
-        //         withSonarQubeEnv(credentialsId: 'sonarqube-credentials', url: SONAR_HOST_URL) {
-        //             sh 'npm run sonar-scanner'
+        // stage('Test') {
+        //     parallel {
+        //         stage('Static code analysis') {
+        //             steps { 
+        //                 sh 'npm run lint' 
+        //             }
+        //         }
+        //         stage('Unit tests') {
+        //             steps { 
+        //                 sh 'npm run test' 
+        //             }
         //         }
         //     }
         // }
+
+        stage('Build') {
+            steps { 
+                sh 'npm run build' 
+            }
+        }
+
+           stage('Package') {
+            steps {
+                sh 'zip -r angular-app.zip dist'
+            }
+        }
+        stage('Upload to Nexus') {
+            steps {
+                 // sh 'cd dist && npm publish --registry=http://your-nexus-repository-url/repository/your-nexus-repository-name/ --access=public'
+                nexusArtifactUploader(
+                    nexusVersion: NEXUS_VERSION,
+                    protocol: 'http',
+                    nexusUrl: NEXUS_URL,
+                    groupId: 'com.example',
+                    artifactId: 'my-angular-app',
+                    version: '1.0',
+                    packaging: 'zip',
+                    repository: NEXUS_REPOSITORY,
+                    credentialsId: NEXUS_CREDENTIAL_ID,
+                    file: 'angular-app.zip'
+                )
+            }
+        }
     }
 }
