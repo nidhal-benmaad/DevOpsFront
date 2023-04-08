@@ -55,7 +55,7 @@ pipeline {
                     packaging: 'zip',
                     repository: NEXUS_REPOSITORY,
                     credentialsId: NEXUS_CREDENTIAL_ID,
-                    file: 'angular-app.zip'
+                    file: 'dist/angular-app.zip'
                 )
             }
         }
